@@ -1,0 +1,140 @@
+.mainContainer{
+  font-family: 'Poppins', sans-serif;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  padding: 20px;
+  gap: 20px;
+  
+}
+
+h1{
+  color: #2c3e50;
+  text-align: center;
+}
+
+/* Filter Input Styles */
+.filterInput{
+  padding: 10px;
+  width: 100%;
+  max-width: 400px;
+  font-size: 16px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #f0f4f8;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.filterInput label{
+  margin-right: 10px;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.filterInput input{
+  padding: 8px;
+  width: calc(100% - 100px);
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Country Card Styles */
+.countryCard{
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 30px;
+  margin: 10px 0;
+  width: 100%;
+  min-width: 400px;
+  max-width: 600px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.countryCard h3{
+  margin-top: 0;
+  color: #34495e;
+  text-align: center;
+  font-size: 28px;
+}
+
+.countryCard p,
+.weatherInfo p{
+  margin: 5px 0;
+  font-size: 16px;
+  color: #2c3e50;
+}
+
+.countryCard p span,
+.weatherInfo p span{
+  font-weight: bold;
+  color: #34495e;
+}
+
+.countryInfo{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flagImage{
+  border: 1px solid #ccc;        
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
+  border-radius: 4px;            
+  background-color: white; 
+}
+
+.weatherInfo h4{
+  color: #34495e;
+  font-size: 20px;
+}
+
+.countriesList{
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.countriesList li{
+  list-style: none;
+  padding: 10px;
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 500;
+}
+
+.countriesList li button{
+  padding: 6px 12px;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  background-color: #1c90dd;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.countriesList li button:hover{
+  background-color: #27749d;
+}
+
+.countriesListContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
