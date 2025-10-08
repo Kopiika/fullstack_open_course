@@ -35,7 +35,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(<App />)
 ## 💻 Running the App
  1. Clone the repository and navigate to the `courseinfo` folder:
 	```bash
-	git clone <your-repo-url>
+	git clone fullstack_open_course
 	cd part1/courseinfo
 	```
 2. Install dependencies:

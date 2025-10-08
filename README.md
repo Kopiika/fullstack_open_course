@@ -26,8 +26,8 @@ It emphasizes building **single-page applications (SPAs)** with REST APIs and co
 Clone the repository and navigate to the desired part or project folder:
 
 ```bash
-git clone fullstack_open_solutions
-cd fullstack_course
+git clone fullstack_open_course
+cd fullstack_open_course
 ```
 For a specific project:
 ```bash

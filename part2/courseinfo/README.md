@@ -36,7 +36,7 @@ src/
 
 1. Clone the repository and navigate to the **`courseinfo`** folder:
 	```bash
-	git clone <your-repo-url>
+	git clone fullstack_open_course
 	cd part2/courseinfo
 	```
 2. Install dependencies:
