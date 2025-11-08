@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+const morgan = require('morgan')
 
 let persons = [
 	{ 
@@ -23,8 +24,17 @@ let persons = [
 	  "number": "39-23-6423122"
 	}
 ]
+ 
+ //Middleware Перетворює JSON в JS-об’єкт
+ app.use(express.json())
 
-app.use(express.json())
+ //Активувати middleware Morgan
+ morgan.token('body', (req) => {
+	return req.method === 'POST' ? JSON.stringify(req.body) : ''
+ })
+
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
+
 
 app.get('/', (request, response) => {
   response.send('<h1>Hello World!</h1>')
@@ -88,9 +98,9 @@ app.post('/api/persons', (request, response) => {
 app.delete('/api/persons/:id', (request, response) => {
   const id = request.params.id
   persons = persons.filter((person) => person.id !== id)
-
   response.status(204).end()
 })
+
 
 const PORT = 3001
 app.listen(PORT, () => {
