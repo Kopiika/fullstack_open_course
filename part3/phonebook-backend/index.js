@@ -1,29 +1,11 @@
+// Підключає бібліотеку dotenv і
+// Завантажує всі змінні з файлу .env у process.env
+require('dotenv').config()
 const express = require('express')
-const app = express()
 const morgan = require('morgan')
+const Person = require('./models/person')
 
-let persons = [
-	{ 
-	  "id": "1",
-	  "name": "Arto Hellas", 
-	  "number": "040-123456"
-	},
-	{ 
-	  "id": "2",
-	  "name": "Ada Lovelace", 
-	  "number": "39-44-5323523"
-	},
-	{ 
-	  "id": "3",
-	  "name": "Dan Abramov", 
-	  "number": "12-43-234345"
-	},
-	{ 
-	  "id": "4",
-	  "name": "Mary Poppendieck", 
-	  "number": "39-23-6423122"
-	}
-]
+const app = express()
  
  //Middleware Перетворює JSON в JS-об’єкт
  app.use(express.json())
@@ -32,40 +14,34 @@ let persons = [
  morgan.token('body', (req) => {
 	return req.method === 'POST' ? JSON.stringify(req.body) : ''
  })
-
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
 
+app.use(express.static('dist'))
 
- app.use(express.static('dist'))
-
-app.get('/', (request, response) => {
-  response.send('<h1>Hello World!</h1>')
-})
-
-app.get('/info', (request, response) => {
-	const count = persons.length
-	const date = new Date()
-
-	response.send(`
-		<p>Phonebook has info for ${count} people</p>
-		<p>${date}</p>
-	`)
- })
-
+ // GET all persons
 app.get('/api/persons', (request, response) => {
-  response.json(persons)
+	Person.find({})
+		.then(persons => response.json(persons))
+		.catch(error => {
+			console.error(error)
+			response.status(500).end()
+	 })
 })
 
+// GET person by ID
 app.get('/api/persons/:id', (request, response) => {
-  const id = request.params.id
-  const person = persons.find((person) => person.id === id)
-
-  if (person) {
-	 response.json(person)
-  } else {
-	 response.statusMessage = "Page can not be found";
-	 response.status(404).end()
-  }
+  Person.findById(request.params.id)
+	.then(person => {
+		if (person) {
+			response.json(person)
+		} else {
+			response.status(404).end()
+		}
+	})
+	.catch(error => {
+		console.log(error)
+		response.status(400).send({ error: 'malformatted id' })
+	})
 })
 
 app.post('/api/persons', (request, response) => {
@@ -77,25 +53,25 @@ app.post('/api/persons', (request, response) => {
 	 })
   } 
   
-  const nameExists = persons.find(person => person.name === body.name)
-  if(nameExists) {
-	return response.status(400).json({
-		error: 'name must be unique',
-	 })
-  }
-
-  const person = {
-	 id: Math.floor(Math.random() * 1000000).toString(), // випадковий id
+  Person.findOne({name:body.name})
+  .then(existingPerson =>{
+	if(existingPerson) {
+		return response.status(400).json({
+			error: 'name must be unique',
+		 })
+	  }
+  
+  const person = new Person ({
 	 name: body.name,
 	 number: body.number,
-  }
+  })
 
-  // додаємо новий об’єкт person у кінець масиву persons, 
-  // не змінюємо старий масив напряму, а створюємо нову копію
-  persons = persons.concat(person)
+ return person.save()
+ .then(savedPerson => response.status(201).json(savedPerson))
+})	
 
-  response.json(person)
 })
+
 
 app.delete('/api/persons/:id', (request, response) => {
   const id = request.params.id
