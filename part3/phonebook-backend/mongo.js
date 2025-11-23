@@ -28,10 +28,10 @@ mongoose.connect(uri)
         number: String
       })
 
-		// Модель
+      // Модель
       const Person = mongoose.model('Person', personSchema)
 
-		//показати всі persons (але не створювати нові)
+      //показати всі persons (але не створювати нові)
       Person.find({})
         .then(persons => {
           console.log('phonebook:')
