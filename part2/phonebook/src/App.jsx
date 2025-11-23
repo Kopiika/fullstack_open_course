@@ -47,6 +47,7 @@ const App = () => {
     }
     /* Check if the person already exists */
     const existingPerson = persons.find(person=>person.name===newName)
+
     if(existingPerson){
       if (window.confirm(`${existingPerson.name} is already added to phonebook, replace the old number with a new one?`)){
         /* Create an updated person object with the new number */
@@ -68,14 +69,24 @@ const App = () => {
           }, 5000)
         })
         .catch(error => {
+          if (error.response && error.response.data && error.response.data.error) {
+            // Validation error
+            setNotification({
+              type: 'error',
+              message: error.response.data.error
+            })
+          } else {
+            // Person missing from server
           setNotification({
               type: 'error',
               message: `Information of '${existingPerson.name}' has already been removed from server`
           })
+          setPersons(persons.filter(n => n.id !== existingPerson.id))
+          }
           setTimeout(() => {
             setNotification({ message: null, type: '' })
           }, 5000)  
-          setPersons(persons.filter(n => n.id !== existingPerson.id))
+          
         })
       } 
       return
@@ -102,6 +113,20 @@ const App = () => {
           setNotification({ message: null, type: '' })
         }, 5000)
       })
+
+      .catch(error => {
+        // Mongoose ValidationError
+        console.log('Validation error:', error.response.data.error)
+        if (error.response && error.response.data && error.response.data.error) {
+            setNotification({
+              type: 'error',
+              message: error.response.data.error
+            })
+            setTimeout(() => setNotification({ message: null, type: '' }), 5000)
+          } else {
+            console.error(error)
+          }
+  })
   }
 
   /* Function to remove a person by id */
