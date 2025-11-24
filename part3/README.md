@@ -49,7 +49,11 @@ The focus of this part is building a **Node.js** + **Express** backend, connecti
 ## 📂 Projects
 
 ### 1. Phonebook Backend (Final Exercise 3.1–3.22)
+
 A full backend for the [Phonebook](https://github.com/Kopiika/fullstack_open_course/tree/main/part2/phonebook) application built in **Part 2**.
+
+**Deployed version:**
+[https://fullstack-open-course-zqns.onrender.com](https://fullstack-open-course-zqns.onrender.com)
 
 - REST API
 - Validation with Mongoose
@@ -60,6 +64,7 @@ A full backend for the [Phonebook](https://github.com/Kopiika/fullstack_open_cou
 
 > A full breakdown and API documentation can be found in
 **[phonebook-backend/README.md](./phonebook-backend/README.md)**.
+
 ---
 ## 🗂️ Folder Structure (Overview)
 ```bash
