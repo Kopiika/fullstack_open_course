@@ -59,12 +59,13 @@ A full backend for the [Phonebook](https://github.com/Kopiika/fullstack_open_cou
 - Serves the React build from the `dist/` folder
 
 > A full breakdown and API documentation can be found in
-> 👉 `part3/phonebook-backend/README.md`
+**[phonebook-backend/README.md](./phonebook-backend/README.md)**.
 ---
 ## 🗂️ Folder Structure (Overview)
 ```bash
 part3/
-└─ phonebook-backend/   # Full Node.js + Express + MongoDB project for the Phonebook app
+├── phonebook-backend/   # Full Node.js + Express + MongoDB project for the Phonebook app
+└─ README.md
 ```
 ---
 ## 🚀 How to Run the Backend Locally
