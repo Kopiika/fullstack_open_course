@@ -47,6 +47,8 @@ All projects require Node.js (>=18) and npm installed locally.
 
 - ✅ Part 2 completed
 
+- ✅ Part 3 completed
+
 - ⏳ Further parts – in progress
 
 ## 📜 License
