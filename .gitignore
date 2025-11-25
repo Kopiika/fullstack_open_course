@@ -41,6 +41,7 @@ node_modules/
 
 # Dependencies
 part3/phonebook-backend/node_modules/
+part4/blod-list/node_modules/
 
 # Local database / uploads
 *.sqlite
@@ -52,5 +53,6 @@ tmp/
 
 # Ignore exercise drafts or local work
 part3/exercises/
+part4/phonebook-backend/
 
 
