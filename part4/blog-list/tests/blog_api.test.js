@@ -217,6 +217,7 @@ describe('when there is initially some blogs saved', () =>{
     })
   })
 })
+
 // close the database after tests
 after(async () => {
   await mongoose.connection.close()
