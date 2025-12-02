@@ -17,6 +17,28 @@ blogsRouter.get('/:id', async (request, response) => {
 		}
 })
 
+// PUT
+blogsRouter.put('/:id', async (request, response) => {
+	const body = request.body
+	const updatedBlog = {
+		title: body.title,
+		author: body.author,
+    	url: body.url,
+    	likes: body.likes,
+	}
+ 
+	const result = await Blog.findByIdAndUpdate(
+		request.params.id,
+		updatedBlog,
+		{new: true, runValidators: true}
+	)
+	if (result){
+		response.json(result)
+    } else {
+      response.status(404).end()
+    }
+ })
+
 // POST a new blog
 blogsRouter.post('/', async (request, response) => {
 		const body = request.body
