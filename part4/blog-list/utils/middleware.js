@@ -1,4 +1,6 @@
 const logger = require('./logger')
+const jwt = require('jsonwebtoken')
+const User = require('../models/user')
 
 const requestLogger = (request, response, next) => {
   logger.info('Method:', request.method)
@@ -12,13 +14,7 @@ const unknownEndpoint = (request, response) => {
   response.status(404).send({ error: 'unknown endpoint' })
 }
 
-/*const tokenExtractor = (request, response, next) => {
-  const auth = request.get('authorization')
-  if (auth && auth.toLowerCase().startsWith('bearer ')) {
-    request.token = auth.substring(7)
-  }
-  next()
-}*/
+
 const tokenExtractor = (request, response, next) => {
   const authorization = request.get('authorization')
   if (authorization && authorization.startsWith('Bearer ')) {
@@ -29,7 +25,33 @@ const tokenExtractor = (request, response, next) => {
   next()
 }
 
-module.exports = { tokenExtractor }
+const userExtractor = async (request, response, next) => {
+  const token = request.token
+
+  if (!token) {
+    return response.status(401).json({ error: 'token missing' })
+  }
+
+  let decodedToken
+  try {
+    decodedToken = jwt.verify(token, process.env.SECRET)
+  } catch (error) {
+    return response.status(401).json({ error: 'token invalid' })
+  }
+
+  if (!decodedToken.id) {
+    return response.status(401).json({ error: 'token invalid' })
+  }
+
+  const user = await User.findById(decodedToken.id)
+
+  if (!user) {
+    return response.status(401).json({ error: 'user not found' })
+  }
+
+  request.user = user
+  next()
+}
 
 const errorHandler = (error, request, response, next) => {
   logger.error(error.message)
@@ -54,6 +76,7 @@ const errorHandler = (error, request, response, next) => {
 module.exports = {
   requestLogger,
   tokenExtractor,
+  userExtractor,
   unknownEndpoint,
   errorHandler
 }
