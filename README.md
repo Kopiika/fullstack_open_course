@@ -21,7 +21,7 @@ It emphasizes building **single-page applications (SPAs)** with REST APIs and co
   - **Phonebook-backend** : Online application
 [https://fullstack-open-course-zqns.onrender.com](https://fullstack-open-course-zqns.onrender.com)
 
-- - [`part4`](./part4) – Testing Express servers & User administration  
+- [`part4`](./part4) – Testing Express servers & User administration  
   - **Blog list**
 
  Each folder contains the full source code and its own README.
