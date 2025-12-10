@@ -21,6 +21,9 @@ It emphasizes building **single-page applications (SPAs)** with REST APIs and co
   - **Phonebook-backend** : Online application
 [https://fullstack-open-course-zqns.onrender.com](https://fullstack-open-course-zqns.onrender.com)
 
+- - [`part4`](./part4) – Testing Express servers & User administration  
+  - **Blog list**
+
  Each folder contains the full source code and its own README.
 
 ---
@@ -48,6 +51,8 @@ All projects require Node.js (>=18) and npm installed locally.
 - ✅ Part 2 completed
 
 - ✅ Part 3 completed
+
+- ✅ Part 4 completed
 
 - ⏳ Further parts – in progress
 
