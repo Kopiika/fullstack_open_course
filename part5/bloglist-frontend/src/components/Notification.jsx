@@ -1,14 +1,14 @@
-import styles from "./Notification.module.css"
+import styles from './Notification.module.css'
 
 const Notification = ({ message, type }) => {
-	if (message === null) {
+  if (message === null) {
 	  return null
-	}
- 
-	return (
-		<div className={`${styles.notification} ${styles[type]}`}>
-			{message}
-		</div>)
- }
- 
- export default Notification
+  }
+
+  return (
+    <div className={`${styles.notification} ${styles[type]}`}>
+      {message}
+    </div>)
+}
+
+export default Notification

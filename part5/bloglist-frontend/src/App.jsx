@@ -10,20 +10,20 @@ import styles from './App.module.css'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
-  const [username, setUsername] = useState('') 
-  const [password, setPassword] = useState('') 
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
   const [errorMessage, setErrorMessage] = useState(null)
   const [successMessage, setSuccessMessage] = useState(null)
 
   const blogFormRef = useRef()
-  
+
 
   useEffect(() => {
-    blogService.getAll().then(blogs =>{
+    blogService.getAll().then(blogs => {
       const sorted = blogs.sort((a, b) => b.likes - a.likes)
       setBlogs(sorted)
-    })  
+    })
   }, [])
 
   useEffect(() => {
@@ -55,7 +55,7 @@ const App = () => {
     }
   }
 
-  const handleLogOut =()=>{
+  const handleLogOut =() => {
     window.localStorage.removeItem('loggedNoteappUser')
     blogService.setToken(null)
     setUser(null)
@@ -69,6 +69,7 @@ const App = () => {
       setSuccessMessage(`a new blog "${returnedBlog.title}" by ${returnedBlog.author} added`)
       setTimeout(() => setSuccessMessage(null), 5000)
     } catch (exception) {
+      console.log(exception)
       setErrorMessage('error creating blog')
       setTimeout(() => setErrorMessage(null), 5000)
     }
@@ -86,34 +87,35 @@ const App = () => {
     setBlogs(updatedBlogs)
   }
 
-    if (user === null) {
-      return (
-        <div>
-          <h2>Log in to application</h2>
-          <Notification message={errorMessage} type="error"/>
-          <Notification message={successMessage} type="success" />
-          <LoginForm
-            handleLogin={handleLogin}
-            username={username}
-            setUsername={setUsername}
-            password={password}
-            setPassword={setPassword}
-          />
-        </div>
-      )
-    }
+  if (user === null) {
+    return (
+      <div>
+        <h2>Log in to application</h2>
+        <Notification message={errorMessage} type="error"/>
+        <Notification message={successMessage} type="success" />
+        <LoginForm
+          handleLogin={handleLogin}
+          username={username}
+          setUsername={setUsername}
+          password={password}
+          setPassword={setPassword}
+        />
+      </div>
+    )
+  }
 
-    const deleteBlog = async (id) => {
-      try {
-        await blogService.remove(id) 
-        setBlogs(blogs.filter(b => b.id !== id)) // видаляємо зі state
-        setSuccessMessage('Blog deleted successfully')
-        setTimeout(() => setSuccessMessage(null), 5000)
-      } catch (error) {
-        setErrorMessage('Error deleting blog')
-        setTimeout(() => setErrorMessage(null), 5000)
-      }
+  const deleteBlog = async (id) => {
+    try {
+      await blogService.remove(id)
+      setBlogs(blogs.filter(b => b.id !== id)) // видаляємо зі state
+      setSuccessMessage('Blog deleted successfully')
+      setTimeout(() => setSuccessMessage(null), 5000)
+    } catch (error) {
+      console.log(error)
+      setErrorMessage('Error deleting blog')
+      setTimeout(() => setErrorMessage(null), 5000)
     }
+  }
 
   return (
     <div>
@@ -131,18 +133,18 @@ const App = () => {
           <BlogForm createBlog={addBlog} />
         </Togglable>
       </div>
-      
+
       <div className={styles.blogList}>
         {blogs.map(blog =>
-          <Blog 
-            key={blog.id} 
-            blog={blog} 
+          <Blog
+            key={blog.id}
+            blog={blog}
             currentUser={user}
-            updateBlog={updateBlog} 
+            updateBlog={updateBlog}
             deleteBlog={deleteBlog}/>
         )}
       </div>
-      
+
     </div>
   )
 }
