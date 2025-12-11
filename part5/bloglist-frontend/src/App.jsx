@@ -1,10 +1,12 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
 import loginService from './services/login'
 import Notification from './components/Notification'
 import LoginForm from './components/LoginForm'
 import BlogForm from './components/BlogForm'
+import Togglable from './components/Togglable'
+import styles from './App.module.css'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -13,6 +15,9 @@ const App = () => {
   const [user, setUser] = useState(null)
   const [errorMessage, setErrorMessage] = useState(null)
   const [successMessage, setSuccessMessage] = useState(null)
+
+  const blogFormRef = useRef()
+  
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -59,13 +64,18 @@ const App = () => {
     try {
       const returnedBlog = await blogService.create(blogObject)
       setBlogs(blogs.concat(returnedBlog))
-
+      blogFormRef.current.toggleVisibility()
       setSuccessMessage(`a new blog "${returnedBlog.title}" by ${returnedBlog.author} added`)
       setTimeout(() => setSuccessMessage(null), 5000)
     } catch (exception) {
       setErrorMessage('error creating blog')
       setTimeout(() => setErrorMessage(null), 5000)
     }
+  }
+
+  const updateBlog = async (id, updatedBlog) => {
+    const returned = await blogService.update(id, updatedBlog)
+    setBlogs(blogs.map(b => b.id !== id ? b : returned))
   }
 
     if (user === null) {
@@ -90,17 +100,25 @@ const App = () => {
       <Notification message={errorMessage} type="error" />
       <Notification message={successMessage} type="success" />
 
-      <div>
-        <p>{user.name} logged in</p>
-        <button onClick={handleLogOut}>Log out</button>
+      <div className={styles.topBar}>
+        <p className={styles.userInfo}><span className={styles.username}>{user.name}</span> logged in</p>
+        <button className={styles.logoutButton} onClick={handleLogOut}>Log out</button>
       </div>
 
-      <BlogForm createBlog={addBlog} />
+      <div className={styles.newBlogContainer}>
+        <Togglable buttonLabel="new blog" ref={blogFormRef} buttonClass="newBlogButton">
+          <BlogForm createBlog={addBlog} />
+        </Togglable>
+      </div>
+      
 
-      <h2>Blogs</h2>
-      {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
-      )}
+      <h2 className={styles.title}>Blogs</h2>
+      <div className={styles.blogList}>
+        {blogs.map(blog =>
+          <Blog key={blog.id} blog={blog} updateBlog={updateBlog}/>
+        )}
+      </div>
+      
     </div>
   )
 }

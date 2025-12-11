@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import styles from "./BlogForm.module.css"
 
 const BlogForm =({createBlog})=>{
 	const [title, setTitle] = useState('')
@@ -20,29 +21,32 @@ const BlogForm =({createBlog})=>{
 	 }
 
 	return (
-		<div>
+		<div className={styles.formContainer}>
 			<h2>Create new</h2>
 			<form onSubmit={addBlog} >
-				<label>
-					Title:
+				<label className={styles.label}>
 					<input 
+						className={styles.input}
+						placeholder='title'
 						value={title}
 						onChange={({target})=> setTitle(target.value)} />
 				</label>
-				<label>
-					Author:
+				<label className={styles.label}>
 					<input 
+						placeholder='author'
+						className={styles.input}
 						value={author} 
 						onChange={({ target }) => setAuthor(target.value)} />
 				</label>
-				<label>
-					Url:
+				<label className={styles.label}>
 					<input 
+						className={styles.input}
+						placeholder='url'
 						value={url} 
 						onChange={({ target }) => setUrl(target.value)} />
 				</label>
 				
-				<button type="submit">Create</button>
+				<button type="submit" className={styles.button}>Create</button>
     		</form>
 		</div>
 	)
