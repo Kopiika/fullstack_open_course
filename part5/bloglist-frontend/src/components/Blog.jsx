@@ -32,13 +32,13 @@ const Blog = ({ blog, updateBlog, deleteBlog, currentUser }) => {
         </button>
       </div>
       {visible && (
-        <div>
-          <div>URL: {blog.url}</div>
+        <div className={styles.blogDetails}>
+          <div className={styles.blogurl}>URL: {blog.url}</div>
           <div>
-            <div>Likes: {blog.likes}</div>
+            <div className={styles.blogLikes}>Likes: {blog.likes}</div>
             <button onClick={handleLike} className={styles.likeBtn}>like</button>
           </div>
-          <div >Added by: {blog.user?.name}</div>
+          <div className={styles.blogAuthor}>Added by: {blog.user?.name}</div>
           {currentUser && blog.user?.username === currentUser.username && (
             <button className={styles.deleteBtn} onClick={handleDelete}>delete blog</button>
           )}
