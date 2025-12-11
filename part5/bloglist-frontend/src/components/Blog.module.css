@@ -45,3 +45,25 @@
  .likeBtn:active {
 	background-color: #2e7d32;
  }
+
+ .deleteBtn {
+	padding: 4px 10px;
+	background-color: #ff6b6b;  
+	color: white;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+	font-size: 15px;
+	font-weight: 500;
+	transition: 0.2s;
+ }
+ 
+ .deleteBtn:hover {
+	background-color: #ff5252;  
+ }
+ 
+ .deleteBtn:active {
+	background-color: #ff3b3b;  
+ }
+
+ 

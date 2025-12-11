@@ -22,7 +22,7 @@ const BlogForm =({createBlog})=>{
 
 	return (
 		<div className={styles.formContainer}>
-			<h2>Create new</h2>
+			<h2>Create new blog</h2>
 			<form onSubmit={addBlog} >
 				<label className={styles.label}>
 					<input 

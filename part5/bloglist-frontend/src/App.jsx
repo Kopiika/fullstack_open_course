@@ -20,9 +20,10 @@ const App = () => {
   
 
   useEffect(() => {
-    blogService.getAll().then(blogs =>
-      setBlogs( blogs )
-    )  
+    blogService.getAll().then(blogs =>{
+      const sorted = blogs.sort((a, b) => b.likes - a.likes)
+      setBlogs(sorted)
+    })  
   }, [])
 
   useEffect(() => {
@@ -73,9 +74,16 @@ const App = () => {
     }
   }
 
-  const updateBlog = async (id, updatedBlog) => {
+  const updateBlog = async (id, updatedBlog, userObj) => {
     const returned = await blogService.update(id, updatedBlog)
-    setBlogs(blogs.map(b => b.id !== id ? b : returned))
+    const blogWithUser = {
+      ...returned,
+      user: userObj
+    }
+    const updatedBlogs = blogs.map(b => b.id !== id ? b : blogWithUser)
+
+    updatedBlogs.sort((a, b) => b.likes - a.likes)
+    setBlogs(updatedBlogs)
   }
 
     if (user === null) {
@@ -95,6 +103,18 @@ const App = () => {
       )
     }
 
+    const deleteBlog = async (id) => {
+      try {
+        await blogService.remove(id) 
+        setBlogs(blogs.filter(b => b.id !== id)) // видаляємо зі state
+        setSuccessMessage('Blog deleted successfully')
+        setTimeout(() => setSuccessMessage(null), 5000)
+      } catch (error) {
+        setErrorMessage('Error deleting blog')
+        setTimeout(() => setErrorMessage(null), 5000)
+      }
+    }
+
   return (
     <div>
       <Notification message={errorMessage} type="error" />
@@ -105,17 +125,21 @@ const App = () => {
         <button className={styles.logoutButton} onClick={handleLogOut}>Log out</button>
       </div>
 
+      <h2 className={styles.title}>Blogs</h2>
       <div className={styles.newBlogContainer}>
-        <Togglable buttonLabel="new blog" ref={blogFormRef} buttonClass="newBlogButton">
+        <Togglable buttonLabel="Create new blog" ref={blogFormRef} buttonClass="newBlogButton">
           <BlogForm createBlog={addBlog} />
         </Togglable>
       </div>
       
-
-      <h2 className={styles.title}>Blogs</h2>
       <div className={styles.blogList}>
         {blogs.map(blog =>
-          <Blog key={blog.id} blog={blog} updateBlog={updateBlog}/>
+          <Blog 
+            key={blog.id} 
+            blog={blog} 
+            currentUser={user}
+            updateBlog={updateBlog} 
+            deleteBlog={deleteBlog}/>
         )}
       </div>
       
