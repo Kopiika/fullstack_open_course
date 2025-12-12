@@ -55,4 +55,6 @@ tmp/
 part3/exercises/
 part4/phonebook-backend/
 
+coverage/
+
 
