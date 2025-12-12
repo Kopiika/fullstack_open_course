@@ -5,6 +5,7 @@ const LoginForm = ({ handleLogin, username, setUsername, password, setPassword }
     className={styles.form}
     onSubmit={handleLogin}>
     <label className={styles.label}>
+      username
       <input
 			  className={styles.input}
 			  placeholder='Username'
@@ -14,6 +15,7 @@ const LoginForm = ({ handleLogin, username, setUsername, password, setPassword }
       </input>
     </label>
     <label className={styles.label}>
+    password
       <input
 			  className={styles.input}
 			  placeholder='Password'
