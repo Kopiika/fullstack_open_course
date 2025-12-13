@@ -16,8 +16,8 @@
  }
  
  .error {
-	color: #5f2120;
+	color: rgb(95,33,32);
 	background-color: #fdecea;
-	border-left: 6px solid #d32f2f;
+	border-left: 6px solid rgb(211,47,47);
  }
  

@@ -18,7 +18,6 @@ const App = () => {
 
   const blogFormRef = useRef()
 
-
   useEffect(() => {
     blogService.getAll().then(blogs => {
       const sorted = blogs.sort((a, b) => b.likes - a.likes)
@@ -32,6 +31,7 @@ const App = () => {
       const user = JSON.parse(loggedUserJSON)
       setUser(user)
       blogService.setToken(user.token)
+      console.log('Token set from localStorage:', user.token)
     }
   }, [])
 
@@ -44,6 +44,7 @@ const App = () => {
         'loggedNoteappUser', JSON.stringify(user)
       )
       blogService.setToken(user.token)
+      console.log('Token set:', user.token)
       setUser(user)
       setUsername('')
       setPassword('')
@@ -63,6 +64,7 @@ const App = () => {
 
   const addBlog = async (blogObject) => {
     try {
+      console.log('Token being used:', blogService.token)
       const returnedBlog = await blogService.create(blogObject)
       setBlogs(blogs.concat(returnedBlog))
       blogFormRef.current.toggleVisibility()
@@ -150,3 +152,4 @@ const App = () => {
 }
 
 export default App
+
