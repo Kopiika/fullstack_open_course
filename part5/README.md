@@ -71,6 +71,7 @@ Part 5 introduces **multiple levels of testing**:
 - **End-to-end tests** (Playwright)
 
 This part significantly improves confidence in frontend correctness and stability.
+
 ---
 
 ## 📜 License
