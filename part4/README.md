@@ -17,9 +17,9 @@ The focus of this part is on backend development, specifically writing **unit** 
 - **Secure API design** — REST principles, handling edge cases (e.g. invalid data, missing fields), validating input, ensuring that operations such as deleting a blog can only be performed by the original creator.
 
 ---
-## 📦 blog-list — REST API project
+## 📦 bloglist-backend — REST API project
 
-This subfolder implements the [Blog-list](https://github.com/Kopiika/fullstack_open_course/tree/main/part4/blog-list) project as described in the course (final exercises 4.1-4.23). The API allows:
+This subfolder implements the [Bloglist-backend](https://github.com/Kopiika/fullstack_open_course/tree/main/part4/blog-list) project as described in the course (final exercises 4.1-4.23). The API allows:
 
 - Listing all blogs
 
@@ -35,7 +35,7 @@ User accounts are supported, and when listing blogs or users, relevant relations
 ## 🗂️ Folder Structure (Overview)
 ```bash
 part4/
-├── blog-list/   # REST API project
+├── bloglist-backend/   # REST API project
 └─ README.md
 ```
 ---
