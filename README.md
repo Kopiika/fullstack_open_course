@@ -22,7 +22,11 @@ It emphasizes building **single-page applications (SPAs)** with REST APIs and co
 [https://fullstack-open-course-zqns.onrender.com](https://fullstack-open-course-zqns.onrender.com)
 
 - [`part4`](./part4) – Testing Express servers & User administration  
-  - **Blog list**
+  - **Blog list - backend**
+
+- [`part5`](./part5) – Testing React Apps
+  - **Blog list - frontend**
+  - **E2E - tests**
 
  Each folder contains the full source code and its own README.
 
@@ -53,6 +57,8 @@ All projects require Node.js (>=18) and npm installed locally.
 - ✅ Part 3 completed
 
 - ✅ Part 4 completed
+
+- ✅ Part 5 completed
 
 - ⏳ Further parts – in progress
 

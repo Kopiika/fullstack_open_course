@@ -34,15 +34,15 @@ part5/bloglist-frontend/
 ├── src/
 │   ├── components/
 │   │   ├── Blog.jsx
-│   │   ├── Blog.module.css             # styles file
-│   │   ├── Blog.test.jsx               # test file
+│   │   ├── Blog.module.css             # styles
+│   │   ├── Blog.test.jsx               # test
 │   │   ├── BlogForm.jsx
-│   │   ├── BlogForm.module.css         # styles file
-│   │   ├── BlogForm.test.jsx           # test file
+│   │   ├── BlogForm.module.css         # styles
+│   │   ├── BlogForm.test.jsx           # test
 │   │   ├── LoginForm.jsx
-│   │   ├── LoginForm.module.css        # styles file
+│   │   ├── LoginForm.module.css        # styles
 │   │   ├── Notification.jsx
-│   │   ├── Notification.module.css     # styles file
+│   │   ├── Notification.module.css     # styles
 │   │   └── Togglable.jsx
 │   │
 │   ├── services/
@@ -92,6 +92,12 @@ Run tests:
 ```bash
 npm test
 ```
+
+### 📸 Test Results
+
+The screenshot below shows successfully executed end-to-end tests using Playwright:
+
+![Playwright tests passed](./assets/playwright-tests-passed.png)
 
 ## 🔐 Authentication Flow
 

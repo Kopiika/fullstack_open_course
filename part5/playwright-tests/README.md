@@ -87,6 +87,61 @@ npm test -- --ui
 - Browser automation (Chromium)
 
 ---
+## 💡 Helpful Notes for Working with Playwright
+
+### 🔌 VS Code Extension
+
+For a better development and debugging experience, it is highly recommended to install the  
+**“Playwright Test for VS Code”** extension.
+
+Benefits:
+- Run tests directly from the editor
+- Visual test results and trace viewer
+- Built-in debugging support
+- Easy navigation between tests
+---
+### 🌐 Running Tests in Chromium Only
+
+To run tests **only in Chromium**, use:
+
+```bash
+npm test -- --project chromium
+```
+This is useful when focusing on a single browser during development.
+
+---
+### 🎯 Running a Single Test
+You can run a specific test by using the -g (grep) command-line option:
+```bash
+npm test -- -g "login fails with wrong password"
+```
+This helps isolate and debug individual test cases.
+
+---
+
+### 🐞 Debugging a Failing Test
+To run a problematic test in debug mode, use:
+```bash
+npm test -- -g "one of those can be made nonimportant" --debug
+```
+---
+
+### ⚙️ Test Generator (Codegen)
+Playwright provides a test generator that records user interactions and generates test code automatically:
+
+```bash
+npx playwright codegen http://localhost:5173/
+```
+This is especially useful for:
+
+- Learning Playwright syntax
+
+- Quickly creating E2E tests
+
+- Exploring selectors and user flows
+
+---
+
 ## 🌱 Challenges I Faced
 
 - Keeping test state isolated and repeatable
