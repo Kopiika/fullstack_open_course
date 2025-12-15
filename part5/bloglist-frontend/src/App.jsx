@@ -31,13 +31,11 @@ const App = () => {
       const user = JSON.parse(loggedUserJSON)
       setUser(user)
       blogService.setToken(user.token)
-      console.log('Token set from localStorage:', user.token)
     }
   }, [])
 
   const handleLogin = async event => {
     event.preventDefault()
-    console.log('logging in with', username, password)
     try {
       const user = await loginService.login({ username, password })
       window.localStorage.setItem(
@@ -64,9 +62,15 @@ const App = () => {
 
   const addBlog = async (blogObject) => {
     try {
-      console.log('Token being used:', blogService.token)
       const returnedBlog = await blogService.create(blogObject)
-      setBlogs(blogs.concat(returnedBlog))
+
+      const blogWithUser = {
+        ...returnedBlog,
+        user: user   // 👈 ОЦЕ КРИТИЧНО
+      }
+
+      //setBlogs(blogs.concat(returnedBlog))
+      setBlogs(blogs.concat(blogWithUser))
       blogFormRef.current.toggleVisibility()
       setSuccessMessage(`a new blog "${returnedBlog.title}" by ${returnedBlog.author} added`)
       setTimeout(() => setSuccessMessage(null), 5000)
@@ -109,7 +113,7 @@ const App = () => {
   const deleteBlog = async (id) => {
     try {
       await blogService.remove(id)
-      setBlogs(blogs.filter(b => b.id !== id)) // видаляємо зі state
+      setBlogs(blogs.filter(b => b.id !== id))
       setSuccessMessage('Blog deleted successfully')
       setTimeout(() => setSuccessMessage(null), 5000)
     } catch (error) {

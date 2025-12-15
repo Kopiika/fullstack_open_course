@@ -22,7 +22,7 @@ const Blog = ({ blog, updateBlog, deleteBlog, currentUser }) => {
     }
   }
   return (
-    <div className={styles.blogStyle}>
+    <div className={styles.blog}>
       <div className={styles.row}>
         <span className={styles.title}>
           {blog.title} — {blog.author}
@@ -36,7 +36,7 @@ const Blog = ({ blog, updateBlog, deleteBlog, currentUser }) => {
           <div className={styles.blogurl}>URL: {blog.url}</div>
           <div>
             <div className={styles.blogLikes}>Likes: {blog.likes}</div>
-            <button onClick={handleLike} className={styles.likeBtn}>like</button>
+            <button onClick={handleLike} className={styles.likeBtn}>Like</button>
           </div>
           <div className={styles.blogAuthor}>Added by: {blog.user?.name}</div>
           {currentUser && blog.user?.username === currentUser.username && (
