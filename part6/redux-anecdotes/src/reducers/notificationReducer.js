@@ -16,12 +16,18 @@ const notificationReducer = createSlice({
 
 export const { setNotification, clearNotification } = notificationReducer.actions
 // Thunk for showing a notification for a limited time
-export const showNotification = (message, duration = 5000) => {
-  return async (dispatch) => {
+let timeoutId
+export const showNotification = (message, seconds) => {
+  return dispatch => {
     dispatch(setNotification(message))
-    setTimeout(() => {
+
+    if (timeoutId) {
+      clearTimeout(timeoutId)
+    }
+
+    timeoutId = setTimeout(() => {
       dispatch(clearNotification())
-    }, duration)
+    }, seconds * 1000)
   }
 }
 export default notificationReducer.reducer
