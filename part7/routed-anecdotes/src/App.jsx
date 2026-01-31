@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import  { useField } from './hooks'
 import {
   BrowserRouter as Router,
   Routes, Route, Link,
@@ -26,6 +27,11 @@ const Anecdote = ({ anecdotes }) => {
   // useParams hook to get the id from the URL
   const id = useParams().id
   const anecdote = anecdotes.find(n => n.id === Number(id)) 
+
+  if (!anecdote) {
+    return <div>anecdote not found</div>
+  }
+
   return (
     <div>
       <h2 style={margin}>{anecdote.content} by {anecdote.author}</h2>
@@ -93,26 +99,35 @@ const Notification = ({ message }) => {
 }
 
 const CreateNew = ({ addNew, setNotification }) => {
-  const [content, setContent] = useState('')
-  const [author, setAuthor] = useState('')
-  const [info, setInfo] = useState('')
   const navigate = useNavigate()
+  const content = useField('text')
+  const author = useField('text')
+  const info = useField('text')
+  const { reset: resetContent, ...contentWithoutReset } = content
+  const { reset: resetAuthor, ...authorWithoutReset } = author
+  const { reset: resetInfo, ...infoWithoutReset } = info
 
   const handleSubmit = (e) => {
     e.preventDefault()
     addNew({
-      content,
-      author,
-      info,
+      content: content.value,
+      author: author.value,
+      info: info.value,
       votes: 0
     })
     navigate('/')
    
-    setNotification(`a new anecdote "${content}" created!`)
+    setNotification(`a new anecdote "${content.value}" created!`)
 
     setTimeout(() => {
       setNotification('')
     }, 5000)
+  }
+
+  const handleReset = () => {
+    resetContent()
+    resetAuthor()
+    resetInfo()
   }
 
   return (
@@ -121,17 +136,18 @@ const CreateNew = ({ addNew, setNotification }) => {
       <form onSubmit={handleSubmit}>
         <div>
           content
-          <input name='content' value={content} onChange={(e) => setContent(e.target.value)} />
+          <input name='content' {...contentWithoutReset} />
         </div>
         <div>
           author
-          <input name='author' value={author} onChange={(e) => setAuthor(e.target.value)} />
+          <input name='author' {...authorWithoutReset} />
         </div>
         <div>
           url for more info
-          <input name='info' value={info} onChange={(e)=> setInfo(e.target.value)} />
+          <input name='info' {...infoWithoutReset} />
         </div>
-        <button>create</button>
+        <button type='submit'>create</button>
+        <button type="button" onClick={handleReset}>reset</button>
       </form>
     </div>
   )
