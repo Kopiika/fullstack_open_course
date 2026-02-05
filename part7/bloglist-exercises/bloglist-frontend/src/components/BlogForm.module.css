@@ -1,56 +1,55 @@
 .formContainer {
-	background: #fff;
-	padding: 20px;
-	border-radius: 8px;
-	box-shadow: 0px 3px 10px rgba(0,0,0,0.1);
-	max-width: 420px;
-	display: flex;
-	flex-direction: column;
-	gap: 20px;
-	font-family: "Roboto", sans-serif;
- }
- 
- .label {
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
-	font-weight: 600;
-	text-transform: capitalize;
- }
- 
- .input {
-	padding: 10px 12px;
-	border-radius: 6px;
-	border: 1px solid #ccc;
-	font-size: 15px;
-	transition: 0.2s;
-	font-family: inherit;
-	margin-bottom: 10px;
- }
- 
- .input:focus {
-	outline: none;
-	border-color: #3f51b5;
-	box-shadow: 0 0 0 3px rgba(63, 81, 181, 0.2);
- }
- 
- .button {
-	padding: 10px;
-	background-color: #4caf50;
-	color: white;
-	border: none;
-	border-radius: 6px;
-	cursor: pointer;
-	font-size: 15px;
-	font-weight: 500;
-	transition: 0.2s;
- }
- 
- .button:hover {
-	background-color: #43a047;
- }
- 
- .button:active {
-	background-color: #2e7d32;
- }
- 
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.input {
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  transition: 0.2s;
+  font-family: inherit;
+  margin-bottom: 10px;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #3f51b5;
+  box-shadow: 0 0 0 3px rgba(63, 81, 181, 0.2);
+}
+
+.button {
+  padding: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.button:hover {
+  background-color: #43a047;
+}
+
+.button:active {
+  background-color: #2e7d32;
+}

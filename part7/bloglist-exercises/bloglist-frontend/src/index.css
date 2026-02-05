@@ -1,25 +1,22 @@
-.newBlogButton, 
+.newBlogButton,
 .cancelButton {
-	padding: 10px 16px;
-	background-color: #1976d2;
-	color: white;
-	border: none;
-	border-radius: 6px;
-	cursor: pointer;
-	font-size: 15px;
-	font-weight: 500;
-	transition: 0.2s;
- }
- 
-.newBlogButton:hover, 
+  padding: 10px 16px;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.newBlogButton:hover,
 .cancelButton:hover {
-	background-color: #125ba0;
- }
- 
-.newBlogButton:active, 
+  background-color: #125ba0;
+}
+
+.newBlogButton:active,
 .cancelButton:active {
-	background-color: #0d3f73;
- }
-
-
- 
+  background-color: #0d3f73;
+}

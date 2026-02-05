@@ -8,18 +8,19 @@ The application allows users to log in, view blogs, create new blogs, like exist
 ### 🔗 Related Projects
 
 - **Backend (REST API)**
-Located in **Part 4**:
-👉 https://github.com/Kopiika/fullstack_open_course/tree/main/part4/bloglist-backend
+  Located in **Part 4**:
+  👉 https://github.com/Kopiika/fullstack_open_course/tree/main/part4/bloglist-backend
 
 - **End-to-End Tests (Playwright)**
-Located in **Part 5**:
-👉 https://github.com/Kopiika/fullstack_open_course/tree/main/part5/playwright-tests
+  Located in **Part 5**:
+  👉 https://github.com/Kopiika/fullstack_open_course/tree/main/part5/playwright-tests
 
 The frontend communicates with the backend using token-based authentication, and the full user flow is tested using Playwright.
 
 ---
 
 ## 🚀 Features
+
 - User login with JWT authentication
 - Persistent login using browser storage
 - Create, like, and delete blogs
@@ -29,6 +30,7 @@ The frontend communicates with the backend using token-based authentication, and
 ---
 
 ## 🗂️ Project Structure
+
 ```
 part5/bloglist-frontend/
 ├── src/
@@ -63,7 +65,9 @@ part5/bloglist-frontend/
 └── README.md
 
 ```
+
 ---
+
 ### 🧪 Testing
 
 This frontend includes **component and integration tests** using:
@@ -89,6 +93,7 @@ This frontend includes **component and integration tests** using:
 Labels were added to form fields to improve accessibility and make tests more reliable.
 
 Run tests:
+
 ```bash
 npm test
 ```
@@ -114,14 +119,17 @@ The screenshot below shows successfully executed end-to-end tests using Playwrig
 6. UI updates based on authentication state
 
 ### 💻 Running Locally
+
 ```bash
 npm install
 npm run dev
 ```
+
 ⚠️ Make sure the backend is running:
 👉 part4/bloglist-backend
 
 ## 🛠️ Development Tools
+
 - React 19
 
 - Vite
@@ -131,6 +139,7 @@ npm run dev
 - Jest & React Testing Library
 
 ---
+
 ## 🌱 Challenges I Faced
 
 - Connecting frontend to a separately developed backend
@@ -148,5 +157,3 @@ This part strengthened my understanding of **frontend testing**, **authenticatio
 ## 📜 License
 
 This project is part of the **Full Stack Open course** exercises and is intended for **learning purposes only**.
-
-

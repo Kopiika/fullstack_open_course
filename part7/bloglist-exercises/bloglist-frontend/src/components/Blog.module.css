@@ -1,69 +1,67 @@
-.blog{
-	margin-top: 8px;
-	transition: all 0.3s ease;
-	padding: 12px 24px;
-	border-radius: 4px;
-	background-color: #e9f1f8;
+.blog {
+  margin-top: 8px;
+  transition: all 0.3s ease;
+  padding: 12px 24px;
+  border-radius: 4px;
+  background-color: #e9f1f8;
 }
 
-.row{
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-	gap: 20px;
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
 }
 
-.viewBtn{
-	padding: 6px 12px;
-	background-color: #335e89;
-	color: white;
-	border: none;
-	border-radius: 6px;
-	cursor: pointer;
-	font-size: 15px;
-	font-weight: 500;
-	transition: 0.2s;
+.viewBtn {
+  padding: 6px 12px;
+  background-color: #335e89;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  transition: 0.2s;
 }
 
 .likeBtn {
-	padding: 4px 10px;
-	background-color: #4caf50;
-	color: white;
-	border: none;
-	border-radius: 6px;
-	cursor: pointer;
-	font-size: 15px;
-	font-weight: 500;
-	transition: 0.2s;
- }
- 
- .likeBtn:hover {
-	background-color: #43a047;
- }
- 
- .likeBtn:active {
-	background-color: #2e7d32;
- }
+  padding: 4px 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  transition: 0.2s;
+}
 
- .deleteBtn {
-	padding: 4px 10px;
-	background-color: #ff6b6b;  
-	color: white;
-	border: none;
-	border-radius: 6px;
-	cursor: pointer;
-	font-size: 15px;
-	font-weight: 500;
-	transition: 0.2s;
- }
- 
- .deleteBtn:hover {
-	background-color: #ff5252;  
- }
- 
- .deleteBtn:active {
-	background-color: #ff3b3b;  
- }
+.likeBtn:hover {
+  background-color: #43a047;
+}
 
- 
+.likeBtn:active {
+  background-color: #2e7d32;
+}
+
+.deleteBtn {
+  padding: 4px 10px;
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.deleteBtn:hover {
+  background-color: #ff5252;
+}
+
+.deleteBtn:active {
+  background-color: #ff3b3b;
+}
