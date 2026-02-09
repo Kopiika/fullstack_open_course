@@ -12,31 +12,33 @@ import styles from './App.module.css';
 
 import { showNotification } from './reducers/notificationReducer';
 import { initializeBlogs, createBlog } from './reducers/blogReducer';
+import { setUser, clearUser } from './reducers/userReducer';
 
 
 const App = () => {
   //const [blogs, setBlogs] = useState([]);
+  //const [user, setUser] = useState(null);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [user, setUser] = useState(null);
 
   const blogFormRef = useRef();
   const dispatch = useDispatch();
 
+  const user = useSelector((state) => state.user);
   const blogs = useSelector((state) => state.blogs);
 
   useEffect(() => {
-    dispatch(initializeBlogs())
-  }, [dispatch])
+    dispatch(initializeBlogs());
+  }, [dispatch]);
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedNoteappUser');
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON);
-      setUser(user);
+      dispatch(setUser(user));
       blogService.setToken(user.token);
     }
-  }, []);
+  }, [dispatch]);
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -45,7 +47,7 @@ const App = () => {
       window.localStorage.setItem('loggedNoteappUser', JSON.stringify(user));
       blogService.setToken(user.token);
       console.log('Token set:', user.token);
-      setUser(user);
+      dispatch(setUser(user));
       setUsername('');
       setPassword('');
     } catch {
@@ -56,7 +58,7 @@ const App = () => {
   const handleLogOut = () => {
     window.localStorage.removeItem('loggedNoteappUser');
     blogService.setToken(null);
-    setUser(null);
+    dispatch(clearUser());
   };
 
   const addBlog = async (blogObject) => {
@@ -75,7 +77,6 @@ const App = () => {
       dispatch(showNotification('Error creating blog', 'error', 5));
     }
   };
-
 
   if (user === null) {
     return (
@@ -119,11 +120,7 @@ const App = () => {
 
       <div className={styles.blogList}>
         {blogs.map((blog) => (
-          <Blog
-            key={blog.id}
-            blog={blog}
-            currentUser={user}
-          />
+          <Blog key={blog.id} blog={blog} currentUser={user} />
         ))}
       </div>
     </div>

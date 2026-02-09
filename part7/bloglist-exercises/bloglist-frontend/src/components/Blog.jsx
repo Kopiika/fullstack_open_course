@@ -25,10 +25,10 @@ const Blog = ({ blog, currentUser }) => {
     );
   }
 
-const handleDelete = async () => {
+const handleDelete = () => {
   if (window.confirm(`Delete blog "${blog.title}" by ${blog.author}?`)) {
     try {
-    await dispatch(deleteBlog(blog.id));
+    dispatch(deleteBlog(blog.id));
     dispatch(
       showNotification(
         `Blog "${blog.title}" deleted successfully`,
