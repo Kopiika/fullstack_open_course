@@ -1,4 +1,4 @@
-import axios from 'axios';
+//import axios from 'axios';
 const baseUrl = '/api/blogs';
 
 let token = null;
@@ -8,31 +8,64 @@ const setToken = (newToken) => {
   console.log('Token set in service:', token);
 };
 
-const getAll = () => {
-  const request = axios.get(baseUrl);
-  return request.then((response) => response.data);
+const getAll = async() => {
+  const response = await fetch(baseUrl);
+  if (!response.ok) {
+    throw new Error('Failed to fetch blogs');
+  }
+  return await response.json();
 };
 
-const create = async (newObject) => {
-  const config = {
-    headers: { Authorization: token },
+const create = async (blogObject) => {
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: token,
+    },
+    body: JSON.stringify({ ...blogObject, likes: 0 }),
   };
 
-  const response = await axios.post(baseUrl, newObject, config);
-  return response.data;
+  const response = await fetch(baseUrl, options);
+
+  if (!response.ok) {
+    throw new Error('Failed to create blog');
+  }
+  return response.json();
 };
 
-const update = async (id, updatedBlog) => {
-  const config = { headers: { Authorization: token } };
-  const response = await axios.put(`${baseUrl}/${id}`, updatedBlog, config);
-  return response.data;
+const update = async (blog) => {
+  const options = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: token,
+    },
+    body: JSON.stringify(blog),
+  };
+
+  const response = await fetch(`${baseUrl}/${blog.id}`, options);
+
+  if (!response.ok) {
+    throw new Error('Failed to update blog');
+  }
+  return response.json();
 };
+
 
 const remove = async (id) => {
-  const config = { headers: { Authorization: token } };
-  /*const response = await axios.delete(`${baseUrl}/${id}`, config)
-  return response.data*/
-  await axios.delete(`${baseUrl}/${id}`, config);
+  const options = {
+    method: 'DELETE',
+    headers: {
+      Authorization: token,
+    },
+  };
+
+  const response = await fetch(`${baseUrl}/${id}`, options);
+
+  if (!response.ok) {
+    throw new Error('Failed to delete blog');
+  }
 };
 
 export default { getAll, create, update, remove, setToken };

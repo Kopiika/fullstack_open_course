@@ -12,7 +12,7 @@ const getAll = async () => {
   return await response.json()
 }
 
-//createNew method for adding a new note to the backend
+//createNew method for adding a new blog to the backend
 const createNew = async (content) => {
 	const options ={
 		method: 'POST',

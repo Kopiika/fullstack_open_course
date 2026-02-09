@@ -1,26 +1,48 @@
 import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux'
+import { likeBlog, deleteBlog } from '../reducers/blogReducer';
+
+import { showNotification } from '../reducers/notificationReducer';
 import styles from './Blog.module.css';
 
-const Blog = ({ blog, updateBlog, deleteBlog, currentUser }) => {
+const Blog = ({ blog, currentUser }) => {
   const [visible, setVisible] = useState(false);
+  const dispatch = useDispatch();
+
   const toggleVisibility = () => {
     setVisible(!visible);
   };
-  const handleLike = async () => {
-    const updated = {
-      ...blog,
-      likes: blog.likes + 1,
-      user: blog.user.id,
-    };
 
-    updateBlog(blog.id, updated, blog.user);
-  };
+  const handleLike = () => {
+    dispatch(likeBlog(blog))
 
-  const handleDelete = () => {
-    if (window.confirm(`Delete blog "${blog.title}" by ${blog.author}?`)) {
-      deleteBlog(blog.id);
+    dispatch(
+      showNotification(
+        `You liked "${blog.title}" by ${blog.author}`,
+        'success',
+        5
+      )
+    );
+  }
+
+const handleDelete = async () => {
+  if (window.confirm(`Delete blog "${blog.title}" by ${blog.author}?`)) {
+    try {
+    await dispatch(deleteBlog(blog.id));
+    dispatch(
+      showNotification(
+        `Blog "${blog.title}" deleted successfully`,
+        'success',
+        5
+      )
+    );
+    } catch (error) {
+      console.log(error);
+      dispatch(showNotification('Error deleting blog', 'error', 5));
     }
-  };
+  }
+};
+
   return (
     <div className={styles.blog}>
       <div className={styles.row}>
