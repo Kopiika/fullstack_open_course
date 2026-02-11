@@ -49,11 +49,7 @@ const handleDelete = () => {
         <span className={styles.title}>
           {blog.title} — {blog.author}
         </span>
-        <button className={styles.viewBtn} onClick={toggleVisibility}>
-          {visible ? 'hide' : 'view'}
-        </button>
       </div>
-      {visible && (
         <div className={styles.blogDetails}>
           <div className={styles.blogurl}>URL: {blog.url}</div>
           <div>
@@ -69,7 +65,7 @@ const handleDelete = () => {
             </button>
           )}
         </div>
-      )}
+      
     </div>
   );
 };

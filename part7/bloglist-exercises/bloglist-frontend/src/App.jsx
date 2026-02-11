@@ -14,6 +14,7 @@ import BlogView from './pages/BlogView';
 import BlogPage from './pages/BlogsPage';
 import UsersPage from './pages/UsersPage';
 import LoginPage from './pages/LoginPage';
+import UserView from './pages/UserView';
 
 import Notification from './components/Notification';
 import LoginForm from './components/LoginForm';
@@ -96,6 +97,7 @@ const App = () => {
         <Route path="/" element={<BlogPage blogFormRef={blogFormRef} />} />
         <Route path="/blogs/:id" element={<BlogView />} />
         <Route path="/users" element={<UsersPage />} />
+        <Route path="/users/:id" element={<UserView />} />
         <Route path="/login" element={<LoginPage />} />
       </Routes>
     </div>
