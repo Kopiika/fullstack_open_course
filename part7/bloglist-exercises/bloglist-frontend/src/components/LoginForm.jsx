@@ -1,4 +1,4 @@
-import styles from './LoginForm.module.css';
+import { TextField, Button, Typography } from '@mui/material';
 
 const LoginForm = ({
   handleLogin,
@@ -6,33 +6,48 @@ const LoginForm = ({
   setUsername,
   password,
   setPassword,
-}) => (
-  <form className={styles.form} onSubmit={handleLogin}>
-    <label className={styles.label}>
-      username
-      <input
-        className={styles.input}
-        placeholder="Username"
-        type="text"
-        value={username}
-        onChange={({ target }) => setUsername(target.value)}
-      ></input>
-    </label>
-    <label className={styles.label}>
-      password
-      <input
-        className={styles.input}
-        placeholder="Password"
-        type="password"
-        value={password}
-        onChange={({ target }) => setPassword(target.value)}
-      ></input>
-    </label>
+}) => {
+  return (
+    <div>
+      <form
+        onSubmit={handleLogin}
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '16px',
+          width: '300px',
+          margin: '0 auto',
+        }}
+      >
+        <Typography variant="h5" component="h2" align="center" marginTop="48px">
+          Log in to application
+        </Typography>
 
-    <button className={styles.button} type="submit" variant="contained">
-      Login
-    </button>
-  </form>
-);
+        <TextField
+          label="Username"
+          value={username}
+          onChange={({ target }) => setUsername(target.value)}
+          fullWidth
+          required
+        />
+
+        <TextField
+          id="outlined-password-input"
+          autoComplete="current-password"
+          label="Password"
+          type="password"
+          value={password}
+          onChange={({ target }) => setPassword(target.value)}
+          fullWidth
+          required
+        />
+
+        <Button type="submit" variant="contained" color="primary" fullWidth>
+          Login
+        </Button>
+      </form>
+    </div>
+  );
+};
 
 export default LoginForm;

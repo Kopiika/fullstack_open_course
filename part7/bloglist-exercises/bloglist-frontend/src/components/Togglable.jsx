@@ -1,4 +1,6 @@
 import { useState, forwardRef, useImperativeHandle } from 'react';
+import { TextField, Button, Typography, Box } from '@mui/material';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 const Togglable = forwardRef((props, ref) => {
   const [visible, setVisible] = useState(false);
@@ -17,19 +19,28 @@ const Togglable = forwardRef((props, ref) => {
   });
 
   return (
-    <div>
+    <Box
+      sx={{
+        marginBottom: '32px',
+      }}
+    >
       <div style={hideWhenVisible}>
-        <button className="newBlogButton" onClick={toggleVisibility}>
+        <Button variant="contained" color="success" onClick={toggleVisibility}>
           {props.buttonLabel}
-        </button>
+        </Button>
       </div>
       <div style={showWhenVisible}>
-        {props.children}
-        <button className="cancelButton" onClick={toggleVisibility}>
+        <Button
+          variant="text"
+          color="error"
+          onClick={toggleVisibility}
+          startIcon={<CancelIcon />}
+        >
           cancel
-        </button>
+        </Button>
+        {props.children}
       </div>
-    </div>
+    </Box>
   );
 });
 

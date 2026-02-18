@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import styles from './BlogForm.module.css';
+import { TextField, Button, Typography, Box } from '@mui/material';
 
 const BlogForm = ({ createBlog }) => {
   const [title, setTitle] = useState('');
@@ -21,42 +21,62 @@ const BlogForm = ({ createBlog }) => {
   };
 
   return (
-    <div className={styles.formContainer}>
-      <h2>Create new blog</h2>
-      <form onSubmit={addBlog}>
-        <label className={styles.label}>
-          title
-          <input
-            className={styles.input}
-            placeholder="title"
-            value={title}
-            onChange={({ target }) => setTitle(target.value)}
-          />
-        </label>
-        <label className={styles.label}>
-          author
-          <input
-            placeholder="author"
-            className={styles.input}
-            value={author}
-            onChange={({ target }) => setAuthor(target.value)}
-          />
-        </label>
-        <label className={styles.label}>
-          url
-          <input
-            className={styles.input}
-            placeholder="url"
-            value={url}
-            onChange={({ target }) => setUrl(target.value)}
-          />
-        </label>
+    <Box
+      sx={{
+        p: 2,
+        border: '1px dashed grey',
+        
+        borderRadius: 1,
+      }}
+    >
+      <Typography
+        variant="h5"
+        component="h2"
+        align="center"
+        gutterBottom
+      >
+        Create new blog
+      </Typography>
 
-        <button type="submit" className={styles.button}>
+      <form
+        onSubmit={addBlog}
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '14px',
+          width: '300px',
+          margin: '0 auto',
+        }}
+      >
+        <TextField
+          label="Title"
+          value={title}
+          onChange={({ target }) => setTitle(target.value)}
+          fullWidth
+          required
+        />
+
+        <TextField
+          label="Author"
+          value={author}
+          onChange={({ target }) => setAuthor(target.value)}
+          fullWidth
+          required
+        />
+
+        <TextField
+          label="Url"
+          value={url}
+          onChange={({ target }) => setUrl(target.value)}
+          fullWidth
+          required
+        />
+
+        <Button color="success" type="submit" variant="contained" fullWidth>
           Create
-        </button>
+        </Button>
       </form>
-    </div>
+    </Box>
   );
 };
 

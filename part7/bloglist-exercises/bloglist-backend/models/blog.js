@@ -4,7 +4,7 @@ const blogSchema = new mongoose.Schema({
 	  title: {
 		type: String,
 		required: [true, 'Blog title required'],
-		minlength: 5,
+		minlength: 3,
 		validate: {
       validator: function(v) {
 			return /^[A-Za-z0-9_\s]+$/.test(v) // only letters, spaces, numbers, underlines are allowed	
@@ -18,7 +18,7 @@ const blogSchema = new mongoose.Schema({
 		minlength: 3,
 		validate: {
 		validator: function(v) {
-		  return /^[A-Za-z\s]+$/.test(v) // only letters and spaces allowed	
+		  return /^[\p{L} ]+$/u.test(v); // only letters and spaces allowed	
 		},
       message: props => `${props.value} contains invalid characters. Only letters and spaces are allowed!`
 	}
@@ -35,7 +35,12 @@ const blogSchema = new mongoose.Schema({
 	  user: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'User'
-  	  }
+	},
+	comments: {
+			type: [String],
+			  default:[]
+		  }
+	  
 })
 
 blogSchema.set('toJSON', {

@@ -1,4 +1,5 @@
 const blogsRouter = require('express').Router()
+const { request, response } = require('express')
 const Blog = require('../models/blog')
 const middleware = require('../utils/middleware')
 
@@ -61,7 +62,20 @@ blogsRouter.post('/', middleware.userExtractor, async (request, response) => {
 		await user.save()
 
 		response.status(201).json(savedBlog)
-	})
+})
+	
+// POST new blog's comment
+blogsRouter.post('/:id/comments', async (request, response) => {
+	const { comment } = request.body
+	const blog = await Blog.findById(request.params.id)
+	if (!blog) {
+		return response.status(404).json({error:'blog not found'})
+	}
+
+	blog.comments = blog.comments.concat(comment)
+	const updatedBlog = await blog.save()
+	response.status(201).json(updatedBlog)
+})
 	 
 // DELETE a blog by ID
 blogsRouter.delete(

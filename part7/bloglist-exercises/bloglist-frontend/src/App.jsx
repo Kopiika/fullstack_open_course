@@ -9,6 +9,7 @@ import {
   useParams,
   useNavigate,
 } from 'react-router-dom';
+import { Container } from '@mui/material';
 
 import BlogView from './pages/BlogView';
 import BlogPage from './pages/BlogsPage';
@@ -28,16 +29,12 @@ import { initializeBlogs, createBlog } from './reducers/blogReducer';
 import { setUser, clearUser } from './reducers/userReducer';
 
 const App = () => {
-  /*const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');*/
 
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
   const blogFormRef = useRef();
   const user = useSelector((state) => state.user);
-  /*const user = useSelector((state) => state.user);
-  const blogs = useSelector((state) => state.blogs);*/
 
   useEffect(() => {
     dispatch(initializeBlogs());
@@ -52,21 +49,6 @@ const App = () => {
     }
   }, [dispatch]);
 
-  /*const handleLogin = async (event) => {
-    event.preventDefault();
-    try {
-      const user = await loginService.login({ username, password });
-      window.localStorage.setItem('loggedNoteappUser', JSON.stringify(user));
-      blogService.setToken(user.token);
-      console.log('Token set:', user.token);
-      dispatch(setUser(user));
-      setUsername('');
-      setPassword('');
-    } catch {
-      dispatch(showNotification('Wrong username or password', 'error', 5));
-    }
-  };*/
-
   const handleLogOut = () => {
     window.localStorage.removeItem('loggedNoteappUser');
     blogService.setToken(null);
@@ -74,33 +56,26 @@ const App = () => {
     navigate('/login');
   };
 
- 
-
-  if (user === null) {
-    return (
-      <div>
-        <Routes>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="*" element={<LoginPage />} />{' '}
-        </Routes>
-      </div>
-    );
-  }
-
   return (
-    <div>
+    <>
       <Menu handleLogOut={handleLogOut} />
+      <Container
+        
+        sx={{
+          height: '100vh',
+        }}
+      >
+        <Notification />
 
-      <Notification />
-
-      <Routes>
-        <Route path="/" element={<BlogPage blogFormRef={blogFormRef} />} />
-        <Route path="/blogs/:id" element={<BlogView />} />
-        <Route path="/users" element={<UsersPage />} />
-        <Route path="/users/:id" element={<UserView />} />
-        <Route path="/login" element={<LoginPage />} />
-      </Routes>
-    </div>
+        <Routes>
+          <Route path="/" element={<BlogPage blogFormRef={blogFormRef} />} />
+          <Route path="/blogs/:id" element={<BlogView />} />
+          <Route path="/users" element={<UsersPage />} />
+          <Route path="/users/:id" element={<UserView />} />
+          <Route path="/login" element={<LoginPage />} />
+        </Routes>
+      </Container>
+    </>
   );
 };
 

@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import styles from './Notification.module.css';
+import { Snackbar, Alert } from '@mui/material';
 
 const Notification = () => {
   const notification = useSelector((state) => state.notification);
@@ -11,7 +11,18 @@ const Notification = () => {
   const { message, type } = notification;
 
   return (
-    <div className={`${styles.notification} ${styles[type]}`}>{message}</div>
+    <Snackbar
+      open={true}
+      anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+    >
+      <Alert
+        severity={type} // 'success' | 'error' | 'info' | 'warning'
+        variant="filled"
+        sx={{ width: '100%' }}
+      >
+        {message}
+      </Alert>
+    </Snackbar>
   );
 };
 

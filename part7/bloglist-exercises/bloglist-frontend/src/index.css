@@ -1,23 +1,54 @@
-.newBlogButton,
-.cancelButton {
-  padding: 10px 16px;
-  background-color: #1976d2;
-  color: white;
+/* ===== CSS Reset ===== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  line-height: 1.5;
+  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: antialiased;
+  font-family: sans-serif;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
   border: none;
-  border-radius: 6px;
+  background: none;
   cursor: pointer;
-  font-size: 15px;
-  font-weight: 500;
-  transition: 0.2s;
 }
 
-.newBlogButton:hover,
-.cancelButton:hover {
-  background-color: #125ba0;
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
-.newBlogButton:active,
-.cancelButton:active {
-  background-color: #0d3f73;
+ul,
+ol {
+  list-style: none;
 }
-

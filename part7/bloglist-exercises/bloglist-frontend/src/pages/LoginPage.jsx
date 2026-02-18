@@ -10,6 +10,7 @@ import blogService from '../services/blogs';
 
 import { setUser } from '../reducers/userReducer';
 import { showNotification } from '../reducers/notificationReducer';
+import Menu from '../components/Menu';
 
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -36,10 +37,7 @@ const LoginPage = () => {
 
   return (
     <div>
-      <h2>Log in to application</h2>
-
       <Notification />
-
       <LoginForm
         handleLogin={handleLogin}
         username={username}

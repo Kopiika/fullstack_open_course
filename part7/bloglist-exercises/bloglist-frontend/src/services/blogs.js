@@ -29,7 +29,26 @@ const create = async (blogObject) => {
   const response = await fetch(baseUrl, options);
 
   if (!response.ok) {
-    throw new Error('Failed to create blog');
+    const errorData = await response.json();
+    console.log(errorData);
+    throw new Error(errorData.error || 'Failed to create blog');
+  }
+  return response.json();
+};
+
+const addComment = async (id, comment) => {
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: token,
+    },
+    body: JSON.stringify({ comment }),
+  };
+  const response = await fetch(`${baseUrl}/${id}/comments`, options);
+
+  if (!response.ok) {
+    throw new Error('Failed to add new comment');
   }
   return response.json();
 };
@@ -68,4 +87,4 @@ const remove = async (id) => {
   }
 };
 
-export default { getAll, create, update, remove, setToken };
+export default { getAll, create, update, remove, setToken, addComment };

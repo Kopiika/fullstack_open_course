@@ -8,7 +8,6 @@ test('<BlogForm /> calls createBlog with correct details when new blog is create
 
   render(<BlogForm createBlog={createBlog} />);
 
-  /*const input = screen.getAllByRole('textbox')*/
   const inputTitle = screen.getByPlaceholderText('title');
   const inputAuthor = screen.getByPlaceholderText('author');
   const inputUrl = screen.getByPlaceholderText('url');
