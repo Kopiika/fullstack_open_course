@@ -19,7 +19,7 @@ const BlogsPage = () => {
   const blogs = useSelector((state) => state.blogs);
    const addBlog = async (blogObject) => {
      try {
-       dispatch(createBlog(blogObject));
+       await dispatch(createBlog(blogObject));
        blogFormRef.current.toggleVisibility();
        dispatch(
          showNotification(
