@@ -1,9 +1,10 @@
-# 📝 Blog List Backend – Full Stack Open (Part 4)
+# Blog List Backend – Full Stack Open (Part 7)
 
-This project is my backend implementation for the **“Blog List”** assignment [Full Stack Open – Part 4](https://fullstackopen.com/en/part4).
+This is the extended **Blog List** backend used as the API for the Part 7 frontend.
+It builds on the Part 4 backend by adding **comments support** and a **testing reset endpoint** for end-to-end test isolation.
 
-It provides a **REST API** for managing blogs and users, including authentication and authorization.
-The backend is built with **Node.js**, **Express**, **MongoDB** (via **Mongoose**), and is thoroughly **tested**.
+It provides a **REST API** for managing blogs, users, authentication, and comments.
+The backend is built with **Node.js**, **Express**, **MongoDB** (via **Mongoose**), and uses Node's built-in test runner.
 
 ---
 
@@ -26,197 +27,171 @@ The backend is built with **Node.js**, **Express**, **MongoDB** (via **Mongoose*
 
 ---
 
-## 🗂️ Project Structure
+## Project Structure
+
 ```
-part4/blog-list/
+bloglist-backend/
 ├── controllers/
-│   ├── blogs.js           # Blog-related routes
+│   ├── blogs.js           # Blog CRUD routes + comments endpoint
 │   ├── users.js           # User creation routes
-│   └── login.js           # Authentication routes
+│   ├── login.js           # Authentication routes
+│   └── testing.js         # Reset endpoint for test isolation
 │
 ├── models/
-│   ├── blog.js            # Blog schema & toJSON transformation
-│   └── user.js            # User schema, password hashing
+│   ├── blog.js            # Blog schema (title, author, url, likes, comments, user)
+│   └── user.js            # User schema (username, name, passwordHash, blogs)
 │
 ├── utils/
 │   ├── config.js          # Environment variable handling
 │   ├── logger.js          # Logging utilities
-│   ├── middleware.js      # Token extractor, error handler
-│   └── list_helper.js     # Blog utility functions
+│   └── middleware.js      # Token extractor, error handler, unknown endpoint
 │
 ├── tests/
 │   ├── blog_api.test.js   # Blog API integration tests
-│   ├── user_api.test.js   # User API tests
-│   ├── login_api.test.js  # Login tests
-│   └── list_helper.test.js# Unit tests for helper functions
+│   ├── user_api.test.js   # User API integration tests
+│   ├── list_helper.test.js# Unit tests for helper functions
+│   ├── average.test.js    # Unit tests for average helper
+│   ├── reverse.test.js    # Unit tests for reverse helper
+│   └── test_helper.js     # Shared test helpers and initial data
 │
 ├── app.js                 # Express app configuration
 ├── index.js               # Entry point
 │
 ├── .env                   # Environment variables (not committed)
-├── .env.test              # Test database configuration
-├── .gitignore
 ├── eslint.config.mjs
-│
 ├── package.json
 ├── package-lock.json
 └── README.md
-
 ```
 ---
-## 📝 How It Works
-### 📌 Database
-The backend uses **MongoDB** via Mongoose.
-Environment variables:
-```bash
-MONGODB_URI
-TEST_MONGODB_URI
-SECRET
-```
-### Schemas
 
-- **Blog**
-	- title (required)
-	- author
-	- url (required)
-	- likes (default: 0)
-	- user (reference to User)
+## How It Works
 
-- **User**
-	- username (unique, required)
-	- name
-	- passwordHash
-	- blogs (array of blog references)
+### Database
 
-### 📌 API Endpoints
+The backend connects to **MongoDB** via Mongoose. Required environment variables:
 
-**Blogs**
-
-| Method |      Endpoint      | Description |
-|--------|--------------------|-------------|
-| GET    | `/api/blogs`     | Get all blogs |
-| POST   | `/api/blogs `    | Create blog (auth required) |
-| PUT    | `/api/blogs/:id` | Update blog likes |
-| DELETE | `/api/blogs/:id` | Delete blog (only owner) |
-
-**Users**
-
-| Method |      Endpoint      | Description |
-|--------|--------------------|-------------|
-| GET    | `/api/users`     | Get all users |
-| POST   | `/api/users `    | Create new user |
-
-**Authentication**
-
-| Method |      Endpoint      | Description |
-|--------|--------------------|-------------|
-| POST    | `/api/login`     | Login and receive JWT |
-
-
-### 🧪 Testing
-
-This project includes extensive automated tests:
-
-✅ **Unit Tests**
-
-- Utility functions in list_helper.js
-
-- Functions such as:
-	- total likes
-	- favorite blog
-	- most blogs
-	- most likes
-
-✅ **Integration Tests**
-
-- Blog creation, updating, deletion
-
-- Default values (likes = 0)
-
-- Validation errors (missing title or url → 400)
-
-- Authorization rules (cannot delete another user’s blog)
-
-- Login and token verification
-
-- Users API behavior
-
-Run tests:
-```bash
-npm test
-```
-
-Tests run against a **separate test database** to keep data isolated.
-
----
-
-## 💻 Running the Backend Locally
-
-1. Clone the repository
-```bash
-git clone https://github.com/Kopiika/fullstack_open_course.git
-cd part4/blog-list
-```
-2. Install dependencies
-```bash
-npm install
-```
-3. Create .env
 ```bash
 MONGODB_URI=your_mongodb_connection_string
 TEST_MONGODB_URI=your_test_database_url
 SECRET=your_jwt_secret
 PORT=3003
 ```
-4. Start the server
+
+### Schemas
+
+- **Blog** — `title` (required), `author`, `url` (required), `likes` (default: 0), `comments` (array of strings), `user` (ref to User)
+- **User** — `username` (unique, required), `name`, `passwordHash`, `blogs` (array of refs)
+
+### API Endpoints
+
+**Blogs**
+
+| Method | Endpoint              | Description                        |
+|--------|-----------------------|------------------------------------|
+| GET    | `/api/blogs`          | Get all blogs (populated with user)|
+| POST   | `/api/blogs`          | Create a blog (auth required)      |
+| PUT    | `/api/blogs/:id`      | Update blog likes                  |
+| DELETE | `/api/blogs/:id`      | Delete blog (only owner)           |
+| POST   | `/api/blogs/:id/comments` | Add a comment to a blog       |
+
+**Users**
+
+| Method | Endpoint     | Description      |
+|--------|--------------|------------------|
+| GET    | `/api/users` | Get all users    |
+| POST   | `/api/users` | Create new user  |
+
+**Authentication**
+
+| Method | Endpoint    | Description              |
+|--------|-------------|--------------------------|
+| POST   | `/api/login`| Login and receive JWT    |
+
+**Testing (only in `NODE_ENV=test`)**
+
+| Method | Endpoint        | Description                              |
+|--------|-----------------|------------------------------------------|
+| POST   | `/api/testing/reset` | Clears the database for test isolation |
+
+### Testing
+
+Unit and integration tests run using Node’s built-in test runner and Supertest.
+
+Run tests:
+
+```bash
+npm test
+```
+
+Tests run against a **separate test database** (`TEST_MONGODB_URI`) to keep data isolated.
+
+---
+
+## Running Locally
+
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+2. Create a `.env` file in the project root:
+
+```bash
+MONGODB_URI=your_mongodb_connection_string
+TEST_MONGODB_URI=your_test_database_url
+SECRET=your_jwt_secret
+PORT=3003
+```
+
+3. Start the server in development mode:
+
 ```bash
 npm run dev
 ```
-**API available at:**
+
+API available at: `http://localhost:3003/api/blogs`
+
+To run in test mode (enables the `/api/testing/reset` endpoint):
+
 ```bash
-http://localhost:3003/api/blogs
+npm run start:test
 ```
 
-## 🛠️ Development Tools
-- Jest – testing framework
+---
 
-- Supertest – HTTP API testing
+## Development Tools
 
-- bcrypt – password hashing
-
-- jsonwebtoken – authentication
-
-- ESLint – linting
-
-- nodemon – development server
+- **Express 5** – web framework
+- **Mongoose** – MongoDB ODM
+- **bcrypt** – password hashing
+- **jsonwebtoken** – JWT authentication
+- **Supertest** – HTTP integration testing
+- **Node test runner** – built-in test framework (no Jest)
+- **ESLint** – linting
 
 Run lint:
+
 ```bash
 npm run lint
 ```
 
 ---
-## 🌱 Challenges I Faced
 
-Working on Part 4 helped me understand:
+## Challenges I Faced
 
-- How to design and test a backend API properly
+Working on this project helped me understand:
 
-- Difference between unit tests and integration tests
+- How to extend an existing REST API with new endpoints (comments) without breaking existing consumers
+- Adding a `testing` controller that is only mounted in `NODE_ENV=test` to safely reset state
+- Switching from Jest to Node’s built-in test runner and adapting test syntax
+- Keeping population and `toJSON` transformations consistent as the schema grew
+- Structuring authorization so only blog owners can delete their own blogs
 
-- How to use separate test databases
+---
 
-- Implementing JWT authentication securely
-
-- Handling authorization (ensuring only the blog owner can delete)
-
-- Structuring Express applications for scalability
-
-- Debugging failing tests and asynchronous behavior
-
-This part significantly improved my confidence in backend testing and API security.
-
-## 📜 License
+## License
 
 This project is part of the **Full Stack Open course** exercises and is intended for **learning purposes only**.
 
