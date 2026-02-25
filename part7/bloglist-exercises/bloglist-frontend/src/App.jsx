@@ -60,7 +60,6 @@ const App = () => {
     <>
       <Menu handleLogOut={handleLogOut} />
       <Container
-        
         sx={{
           height: '100vh',
         }}
@@ -68,11 +67,36 @@ const App = () => {
         <Notification />
 
         <Routes>
-          <Route path="/" element={<BlogPage blogFormRef={blogFormRef} />} />
-          <Route path="/blogs/:id" element={<BlogView />} />
-          <Route path="/users" element={<UsersPage />} />
-          <Route path="/users/:id" element={<UserView />} />
-          <Route path="/login" element={<LoginPage />} />
+          <Route
+            path="/login"
+            element={user ? <Navigate to="/" /> : <LoginPage />}
+          />
+
+          <Route
+            path="/"
+            element={
+              user ? (
+                <BlogPage blogFormRef={blogFormRef} />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
+
+          <Route
+            path="/blogs/:id"
+            element={user ? <BlogView /> : <Navigate to="/login" />}
+          />
+
+          <Route
+            path="/users"
+            element={user ? <UsersPage /> : <Navigate to="/login" />}
+          />
+
+          <Route
+            path="/users/:id"
+            element={user ? <UserView /> : <Navigate to="/login" />}
+          />
         </Routes>
       </Container>
     </>
