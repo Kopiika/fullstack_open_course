@@ -34,14 +34,26 @@ if (process.env.NODE_ENV === 'test') {
   app.use('/api/testing', testingRouter)
 }
 
-// SPA fallback: serve index.html for any non-API route so React Router works
+/* SPA fallback: serve index.html for any non-API route so React Router works
 app.get('*', (request, response) => {
   response.sendFile('index.html', { root: 'dist' })
+})*/
+
+// static frontend
+const path = require('path')
+app.use(express.static(path.join(__dirname, 'dist')))
+
+// API unknown endpoint
+app.use('/api', middleware.unknownEndpoint)
+
+// SPA fallback
+app.use((req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'))
 })
 
-app.use(middleware.unknownEndpoint)
+
+
+//app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
-
-
 
 module.exports = app
