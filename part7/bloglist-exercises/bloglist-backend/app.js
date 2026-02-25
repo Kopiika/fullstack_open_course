@@ -20,7 +20,7 @@ mongoose
     logger.error('error connection to MongoDB:', error.message)
   })
 
-//app.use(express.static('dist'))
+app.use(express.static('dist'))
 app.use(express.json())
 app.use(middleware.requestLogger)
 app.use(middleware.tokenExtractor)
@@ -33,6 +33,11 @@ if (process.env.NODE_ENV === 'test') {
   const testingRouter = require('./controllers/testing')
   app.use('/api/testing', testingRouter)
 }
+
+// SPA fallback: serve index.html for any non-API route so React Router works
+app.get('*', (request, response) => {
+  response.sendFile('index.html', { root: 'dist' })
+})
 
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
