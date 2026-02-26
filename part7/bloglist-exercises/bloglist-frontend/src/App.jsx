@@ -67,7 +67,7 @@ const App = () => {
         <Notification />
 
         <Routes>
-          <Route path="/" element={user ? <BlogPage blogFormRef={blogFormRef} /> : <Navigate to="/login" replace />} />
+          <Route path="/login" element={user ? <BlogPage blogFormRef={blogFormRef} /> : <Navigate to="/login" replace />} />
           <Route path="/blogs/:id" element={user ? <BlogView /> : <Navigate to="/login" replace />} />
           <Route path="/users" element={user ? <UsersPage /> : <Navigate to="/login" replace />} />
           <Route path="/users/:id" element={user ? <UserView /> : <Navigate to="/login" replace />} />
