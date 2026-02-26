@@ -68,6 +68,9 @@ A minimal app demonstrating a fully generic `useResource` hook.
 
 A fully extended Blog List application — the main project of Part 7.
 
+Deployed version:
+[https://bloglist-app-l0mi.onrender.com](https://bloglist-app-l0mi.onrender.com)
+
 - **Frontend:** React + Vite, React Router, Redux Toolkit, Material UI
 - **Backend:** Node.js + Express + MongoDB (from Part 4), extended with comments support
 - Multi-page SPA: Blogs list, individual blog view, users list, individual user view

@@ -6,6 +6,9 @@ It builds on the Part 4 backend by adding **comments support** and a **testing r
 It provides a **REST API** for managing blogs, users, authentication, and comments.
 The backend is built with **Node.js**, **Express**, **MongoDB** (via **Mongoose**), and uses Node's built-in test runner.
 
+Deployed version:
+[https://bloglist-app-l0mi.onrender.com](https://bloglist-app-l0mi.onrender.com)
+
 ---
 
 ## 🚀 Features
