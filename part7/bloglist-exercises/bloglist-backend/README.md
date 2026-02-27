@@ -9,6 +9,12 @@ The backend is built with **Node.js**, **Express**, **MongoDB** (via **Mongoose*
 Deployed version:
 [https://bloglist-app-l0mi.onrender.com](https://bloglist-app-l0mi.onrender.com)
 
+You can use demo account:
+```bash 
+username: demo
+password: demopassword123
+```
+
 ---
 
 ## 🚀 Features
