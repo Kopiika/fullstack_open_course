@@ -24,10 +24,15 @@ app.get("/bmi", (req, res) => {
 			weight,
 			bmi
 		});
-	} catch (error) {
+	} catch (error: unknown) {
+		if (error instanceof Error) {
+			console.error(error.message);
+		}
 		return res.status(500).json({ error: "An unexpected error occurred" });
 	}
 });
+
+
 	
 
 app.listen(PORT, () => {
