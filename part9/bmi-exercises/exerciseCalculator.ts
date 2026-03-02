@@ -19,17 +19,17 @@ const parseArguments = (args: string[]): ExerciseInput => {
 		throw new Error("Not enough arguments");
 	}
 
-	const dailyExercises = args.slice(2, -1).map(arg => {
+	const target = Number(args[2]);
+  if (isNaN(target)) {
+    throw new Error("Target value is not a number!");
+  }
+	
+	const dailyExercises = args.slice(3).map(arg => {
 		if (isNaN(Number(arg))) {
 			throw new Error("Provided values were not numbers!");
 		}
 		return Number(arg);
 	});
-
-	const target = Number(args[args.length - 1]);
-	if (isNaN(target)) {
-		throw new Error("Target value is not a number!");
-	}
 
 	return {
 		dailyExercises,
@@ -82,3 +82,4 @@ try {
 	console.log(errorMessage);
 }
 
+module.exports = { calculateExercises };

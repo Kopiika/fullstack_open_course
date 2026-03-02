@@ -23,10 +23,7 @@ const args = process.argv.slice(2);
 if (args.length < 2) {
   console.log("Please provide both height and weight as arguments.");
   process.exit(1);
-} else if (args.length > 2) {
-  console.log("Too many arguments provided. Please provide only height and weight.");
-  process.exit(1);
-}
+} else if (args.length > 2) 
 
 try {
   const height: number = Number(process.argv[2]);
@@ -43,5 +40,6 @@ try {
   console.log(errorMessage);
 }
 
+module.exports = { calculateBmi };
 
 
