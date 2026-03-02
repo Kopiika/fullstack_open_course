@@ -37,7 +37,8 @@ const parseArguments = (args: string[]): ExerciseInput => {
 	};
 };
 
-const calculateExercises = (dailyExercises: number[], target: number): Result => {
+// Exercise calculation logic
+export const calculateExercises = (dailyExercises: number[], target: number): Result => {
 	const periodLength = dailyExercises.length;
 	const trainingDays = dailyExercises.filter(d => d > 0).length;
 	const totalHours = dailyExercises.reduce((sum, day) => sum + day, 0);
@@ -81,5 +82,3 @@ try {
 	}
 	console.log(errorMessage);
 }
-
-module.exports = { calculateExercises };

@@ -1,4 +1,4 @@
-const calculateBmi = (height: number, weight: number): string => {
+export const calculateBmi = (height: number, weight: number): string => {
 	const heightInMeters = height / 100;
 	const bmi = weight / (heightInMeters * heightInMeters);
 
@@ -19,27 +19,30 @@ const calculateBmi = (height: number, weight: number): string => {
 // Arguments parsing
 // The first two elements of process.argv are the path to the node executable and the path to the script file, so we start from index 2
 
-const args = process.argv.slice(2);
-if (args.length < 2) {
-  console.log("Please provide both height and weight as arguments.");
-  process.exit(1);
-} else if (args.length > 2) 
+// (require.main === module) means that the script is being run if the file is launched directly → execute CLI code; if the file is imported → CLI code is NOT executed.
+	if (require.main === module) {
+    try {
+      const args = process.argv.slice(2);
 
-try {
-  const height: number = Number(process.argv[2]);
-	const weight: number = Number(process.argv[3]);
-	if (isNaN(height) || isNaN(weight)) {
-    throw new Error("Provided values were not numbers!");
-	}
-	console.log(calculateBmi(height, weight));
-} catch (error: unknown) {
-  let errorMessage = "Something went wrong: ";
-  if (error instanceof Error) {
-    errorMessage += error.message;
+      if (args.length !== 2) {
+        throw new Error("Please provide height and weight");
+      }
+
+      const height = Number(args[0]);
+      const weight = Number(args[1]);
+
+      if (isNaN(height) || isNaN(weight)) {
+        throw new Error("Provided values were not numbers!");
+      }
+
+      console.log(calculateBmi(height, weight));
+    } catch (error: unknown) {
+      let message = "Something went wrong: ";
+      if (error instanceof Error) {
+        message += error.message;
+      }
+      console.log(message);
+    }
   }
-  console.log(errorMessage);
-}
-
-module.exports = { calculateBmi };
 
 
