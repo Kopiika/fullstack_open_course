@@ -15,8 +15,26 @@ const calculateBmi = (height: number, weight: number): string => {
 	}
 };
 
+
+// Arguments parsing
+// The first two elements of process.argv are the path to the node executable and the path to the script file, so we start from index 2
+
+const args = process.argv.slice(2);
+if (args.length < 2) {
+  console.log("Please provide both height and weight as arguments.");
+  process.exit(1);
+} else if (args.length > 2) {
+  console.log("Too many arguments provided. Please provide only height and weight.");
+  process.exit(1);
+}
+
 try {
-  console.log(calculateBmi(180, 74)); 
+  const height: number = Number(process.argv[2]);
+	const weight: number = Number(process.argv[3]);
+	if (isNaN(height) || isNaN(weight)) {
+    throw new Error("Provided values were not numbers!");
+	}
+	console.log(calculateBmi(height, weight));
 } catch (error: unknown) {
   let errorMessage = "Something went wrong: ";
   if (error instanceof Error) {

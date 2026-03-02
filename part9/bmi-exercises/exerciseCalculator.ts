@@ -8,6 +8,35 @@ interface Result {
   average: number;
 }
 
+interface ExerciseInput {
+  dailyExercises: number[];
+  target: number;
+}
+
+// Arguments parsing
+const parseArguments = (args: string[]): ExerciseInput => {
+	if (args.length < 4) {
+		throw new Error("Not enough arguments");
+	}
+
+	const dailyExercises = args.slice(2, -1).map(arg => {
+		if (isNaN(Number(arg))) {
+			throw new Error("Provided values were not numbers!");
+		}
+		return Number(arg);
+	});
+
+	const target = Number(args[args.length - 1]);
+	if (isNaN(target)) {
+		throw new Error("Target value is not a number!");
+	}
+
+	return {
+		dailyExercises,
+		target
+	};
+};
+
 const calculateExercises = (dailyExercises: number[], target: number): Result => {
 	const periodLength = dailyExercises.length;
 	const trainingDays = dailyExercises.filter(d => d > 0).length;
@@ -39,9 +68,12 @@ const calculateExercises = (dailyExercises: number[], target: number): Result =>
 		average
 	};
 };
+
  
 try {
-	console.log(calculateExercises([3, 0, 2, 4.5, 0, 3, 1], 2));
+	const { dailyExercises, target } = parseArguments(process.argv);
+	const result = calculateExercises(dailyExercises, target);
+	console.log(result);
 } catch (error: unknown) {
 	let errorMessage = "Something went wrong.";
 	if (error instanceof Error) {
@@ -49,3 +81,4 @@ try {
 	}
 	console.log(errorMessage);
 }
+
