@@ -8,11 +8,11 @@ const getEntries = (): Diagnosis[] => {
   return diagnoses;
 };
 
-const addDiagnosis = () => {
+/*const addDiagnosis = () => {
   return null;
-};
+};*/
 
 export default {
   getEntries,
-  addDiagnosis,
+  //addDiagnosis,
 };

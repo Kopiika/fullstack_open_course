@@ -4,7 +4,6 @@ import diagnosesService from "../services/diagnosesService";
 const diagnosesRouter = express.Router();
 
 diagnosesRouter.get("/", (_req, res) => {
-	//res.send("Fetching all diagnoses!");
 	const diagnoses = diagnosesService.getEntries();
 	res.json(diagnoses);
 });
