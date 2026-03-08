@@ -8,4 +8,8 @@ patientsRouter.get("/", (_req, res) => {
 	res.json(patients);
 });
 
+patientsRouter.post("/", (_req, res) => {
+  const;
+});
+
 export default patientsRouter;
