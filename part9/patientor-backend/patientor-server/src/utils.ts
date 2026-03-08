@@ -1,16 +1,16 @@
-import { NewPatient, Gender } from "./types";
+import { Gender } from "./types";
 import { z } from "zod";
 
-const newPatientSchema = z.object({
-  name: z.string(),
-  dateOfBirth: z.string(),
-  ssn: z.string(),
-  gender: z.enum(Gender),
-  occupation: z.string(),
+export const NewPatientSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  dateOfBirth: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, "Date must be in format YYYY-MM-DD"),
+  ssn: z.string().min(1, "SSN is required"),
+  gender: z.enum([Gender.Male, Gender.Female, Gender.Other]),
+  occupation: z.string().min(1, "Occupation is required"),
 });
 
-const toNewPatient = (object: unknown): NewPatient => {
-	return newPatientSchema.parse(object);
+export const toNewPatient = (object: unknown): z.infer<typeof NewPatientSchema> => {
+  return NewPatientSchema.parse(object);
 };
-
-export default toNewPatient;
