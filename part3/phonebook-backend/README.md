@@ -5,6 +5,8 @@ This project is my backend implementation for the **“Phonebook Backend”** as
 It provides a REST API for storing, retrieving, updating, and deleting phonebook entries.
 The backend is built with Node.js, Express, and MongoDB (via Mongoose).
 
+![Dashboard](docs/screenshots/dashboard.png)
+
 ### Deployed version:
 
 [https://fullstack-open-course-zqns.onrender.com](https://fullstack-open-course-zqns.onrender.com)
